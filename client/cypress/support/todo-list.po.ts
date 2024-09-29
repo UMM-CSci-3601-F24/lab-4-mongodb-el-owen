@@ -1,13 +1,13 @@
 export class TodoListPage {
   private readonly baseUrl = '/todos';
   private readonly pageTitle = '.todo-list-title';
-  private readonly userCardSelector = '.todo-cards-container app-todo-card';
-  private readonly userListItemsSelector = '.todo-nav-list .todo-list-item';
+  private readonly todoCardSelector = '.todo-cards-container app-todo-card';
+  private readonly todoListItemsSelector = '.todo-nav-list .todo-list-item';
   // private readonly profileButtonSelector = '[data-test=viewProfileButton]';
   private readonly radioButtonSelector = `[data-test=viewTypeRadio] mat-radio-button`;
-  // private readonly userRoleDropdownSelector = '[data-test=userRoleSelect]';
+  // private readonly todoRoleDropdownSelector = '[data-test=todoRoleSelect]';
   private readonly dropdownOptionSelector = `mat-option`;
-  private readonly addUserButtonSelector = '[data-test=addTodoButton]';
+  private readonly addTodoButtonSelector = '[data-test=addTodoButton]';
 
   navigateTo() {
     return cy.visit(this.baseUrl);
@@ -30,7 +30,7 @@ export class TodoListPage {
    *   the `app-user-card` DOM elements.
    */
    getTodoCards() {
-    return cy.get(this.userCardSelector);
+    return cy.get(this.todoCardSelector);
   }
 
   /**
@@ -64,6 +64,6 @@ export class TodoListPage {
   }
 
   addTodoButton() {
-    return cy.get(this.addUserButtonSelector);
+    return cy.get(this.addTodoButtonSelector);
   }
 }

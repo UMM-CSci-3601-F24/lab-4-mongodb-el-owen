@@ -143,10 +143,10 @@ public class TodoController implements Controller {
   }
 
   public void addRoutes(Javalin server) {
-    // Get the specified user
+    // Get the specified todo
     server.get(API_TODO_BY_ID, this::getTodo);
 
-    // // List users, filtered using query parameters
+    // List todos, filtered using query parameters
     server.get(API_TODOS, this::getTodos);
 
     // server.get("/api/usersByCompany", this::getUsersGroupedByCompany);

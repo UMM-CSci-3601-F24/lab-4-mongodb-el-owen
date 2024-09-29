@@ -20,7 +20,7 @@ public class TodoSpec {
   }
 
   @Test
-  void usersWithEqualIdAreEqual() {
+  void todosWithEqualIdAreEqual() {
     todo1._id = FAKE_ID_STRING_1;
     todo2._id = FAKE_ID_STRING_1;
 
@@ -28,7 +28,7 @@ public class TodoSpec {
   }
 
   @Test
-  void usersWithDifferentIdAreNotEqual() {
+  void todosWithDifferentIdAreNotEqual() {
     todo1._id = FAKE_ID_STRING_1;
     todo2._id = FAKE_ID_STRING_2;
 
@@ -44,9 +44,9 @@ public class TodoSpec {
   }
 
   @Test
-  void usersAreNotEqualToOtherKindsOfThings() {
+  void todosAreNotEqualToOtherKindsOfThings() {
     todo1._id = FAKE_ID_STRING_1;
-    // a user is not equal to its id even though id is used for checking equality
+    // a todo is not equal to its id even though id is used for checking equality
     assertFalse(todo1.equals(FAKE_ID_STRING_1));
   }
 }
