@@ -33,8 +33,8 @@ import umm3601.Controller;
 
 public class TodoController implements Controller {
 
-  // private static final String API_TODOS = "/api/todos";
-  // private static final String API_TODO_BY_ID = "/api/todos/{id}";
+  private static final String API_TODOS = "/api/todos";
+  private static final String API_TODO_BY_ID = "/api/todos/{id}";
   static final String OWNER_KEY = "owner";
   static final String STATUS_KEY = "status";
   static final String BODY_KEY = "body";
@@ -115,11 +115,11 @@ public class TodoController implements Controller {
     String body = ctx.body();
     Todo newTodo = ctx.bodyValidator(Todo.class)
         .check(todo -> todo.owner != null && todo.owner.length() > 0,
-            "User must have a non-empty user name; body was " + body)
+            "User must have a non-empty user one; body was " + body)
         .check(todo -> todo.body != null && todo.body.length() > 0,
-            "Todos's body must be greater than zero; body was " + body)
+            "Todos's body must be greater than one; body was " + body)
         .check(todo -> todo.category != null && todo.category.length() > 0,
-            "Todos's category must be greater than zero; body was " + body)
+            "Todos's category must be greater than one; body was " + body)
         .get();
 
     todoCollection.insertOne(newTodo);
@@ -144,19 +144,19 @@ public class TodoController implements Controller {
 
   public void addRoutes(Javalin server) {
     // Get the specified user
-    // server.get(API_TODO_BY_ID, this::getTodo);
+    server.get(API_TODO_BY_ID, this::getTodo);
 
     // // List users, filtered using query parameters
-    // server.get(API_TODOS, this::getTodos);
+    server.get(API_TODOS, this::getTodos);
 
     // server.get("/api/usersByCompany", this::getUsersGroupedByCompany);
     // Get users, possibly filtered, grouped by company
 
     // Delete the specified user
-    // server.delete(API_TODO_BY_ID, this::deleteTodo);
+    server.delete(API_TODO_BY_ID, this::deleteTodo);
 
     // Add new user with the user info being in the JSON body
-    // server.post(API_TODOS, this::addNewTodo);
+    server.post(API_TODOS, this::addNewTodo);
     // of the HTTP request
   }
 }
