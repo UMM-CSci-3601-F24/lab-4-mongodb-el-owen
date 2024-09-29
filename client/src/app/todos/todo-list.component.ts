@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-// import { Component, signal, inject, computed } from '@angular/core';
-// import { MatSnackBar } from '@angular/material/snack-bar';
-// import { catchError, combineLatest, of, switchMap, tap } from 'rxjs';
-// import { Todo } from './todo';
-// import { TodoService } from './todo.service';
+import { Component, signal, inject, computed, /*computed*/ } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError, combineLatest, of, switchMap, tap } from 'rxjs';
+import { Todo } from './todo';
+import { TodoService } from './todo.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-// import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-todo-list-component',
@@ -34,7 +33,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatOptionModule,
     MatRadioModule,
-    // UserCardComponent,
+    // TodoCardComponent,
     MatListModule,
     RouterLink,
     MatButtonModule,
@@ -43,5 +42,59 @@ import { MatCardModule } from '@angular/material/card';
   ],
 })
 export class TodoListComponent {
+  private todoService = inject(TodoService);
+  private snackBar = inject(MatSnackBar);
 
+  todoOwner = signal<string | undefined>(undefined);
+  todoStatus = signal<string | undefined>(undefined);
+  todoCategory = signal<string | undefined>(undefined);
+  todoBody = signal<string | undefined>(undefined);
+
+  viewType = signal<'card' | 'list'>('list');
+
+  errMsg = signal<string | undefined>(undefined);
+
+  // We are doing status and owner filtering server side so these are observables
+  private todoOwner$ = toObservable(this.todoOwner);
+  private todoStatus$ = toObservable(this.todoStatus);
+
+  serverFilteredTodos =
+    toSignal(
+      combineLatest([this.todoOwner$, this.todoStatus$]).pipe(
+
+      switchMap(([owner, status]) =>
+        this.todoService.getTodos({
+          owner,
+          status,
+        })
+      ),
+        catchError((err) => {
+          if (err.error instanceof ErrorEvent) {
+            this.errMsg.set(
+              `Problem in the client – Error: ${err.error.message}`
+            );
+          } else {
+            this.errMsg.set(
+              `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`
+            );
+          }
+          this.snackBar.open(this.errMsg(), 'OK', { duration: 6000 });
+          // `catchError` needs to return the same type. `of` makes an observable of the same type, and makes the array still empty
+          return of<Todo[]>([]);
+        }),
+        // Tap allows you to perform side effects if necessary
+        tap(() => {
+          console.log('todos were filtered on server');
+        })
+      )
+    );
+  filteredTodos = computed(() => {
+    const serverFilteredTodos = this.serverFilteredTodos();
+    return this.todoService.filterTodos(serverFilteredTodos, {
+      // owner: this.todoOwner(),
+      // status: this.todoStatus(),
+      body: this.todoBody(),
+      category: this.todoCategory(),
+    });
+  });
 }
