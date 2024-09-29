@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 // import { environment } from '../../environments/environment';
 import { Todo } from './todo';
 import { Observable } from 'rxjs';
-// import { map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: `root`
@@ -33,7 +33,10 @@ export class TodoService {
       params: httpParams,
     });
   }
-
+  addTodo(newTodo: Partial<Todo>): Observable<string> {
+    // Send post request to add a new user with the todo data as the body.
+    return this.httpClient.post<{id: string}>(this.todoUrl, newTodo).pipe(map(res => res.id));
+  }
   getTodoById(id: string): Observable<Todo> {
     return this.httpClient.get<Todo>(`${this.todoUrl}/${id}`);
   }
@@ -54,7 +57,3 @@ export class TodoService {
   }
 }
 
-  addTodo(newTodo: Partial<Todo>): Observable<string> {
-    // Send post request to add a new user with the user data as the body.
-    return this.httpClient.post<{id: string}>(this.todoUrl, newTodo).pipe(map(res => res.id));
-  }

@@ -37,9 +37,9 @@ export class AddTodoComponent {
     body: new FormControl('', Validators.compose([
       Validators.required,
     ])),
-    status: new FormControl<boolean>(null, Validators.compose([
-      Validators.required,
-    ])),
+    // status: new FormControl<boolean>(null, Validators.compose([
+    //   Validators.required,
+    // ])),
   });
 
   readonly addTodoValidationMessages = {
@@ -61,10 +61,10 @@ export class AddTodoComponent {
       {type: 'required', message: 'Body is required'},
       {type: 'minlength', message: 'Body must be at least 1 character long'},
     ],
-    status: [
-      { type: 'required', message: 'Status is required' },
-      { type: 'pattern', message: 'Role must be a boolean' },
-    ]
+    // status: [
+    //   { type: 'required', message: 'Status is required' },
+    //   { type: 'pattern', message: 'Role must be a boolean' },
+    // ]
   };
 
   constructor(
@@ -73,9 +73,9 @@ export class AddTodoComponent {
     private router: Router) {
   }
 
-  formControlHasError(controlName: string): boolean {
-    return this.addTodoForm.get(controlName).invalid &&
-      (this.addTodoForm.get(controlName).dirty || this.addTodoForm.get(controlName).touched);
+  formControlHasError(controlOwner: string): boolean {
+    return this.addTodoForm.get(controlOwner).invalid &&
+      (this.addTodoForm.get(controlOwner).dirty || this.addTodoForm.get(controlOwner).touched);
   }
 
   getErrorMessage(owner: keyof typeof this.addTodoValidationMessages): string {

@@ -6,7 +6,6 @@ import { TodoListComponent } from './todos/todo-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
 import { CompanyListComponent } from './company-list/company-list.component';
-import { TodoListComponent } from './todos/todo-list.component';
 import { AddTodoComponent } from './todos/add-todo.component';
 import { TodoProfileComponent } from './todos/todo-profile.component';
 

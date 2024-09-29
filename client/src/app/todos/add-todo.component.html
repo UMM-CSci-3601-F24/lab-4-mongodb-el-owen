@@ -1,4 +1,3 @@
-<p>add-todo works!</p>
 <div class="flex-row">
   <div class="flex-1">
     <form [formGroup]="addTodoForm" (ngSubmit)="submitForm();">
@@ -40,18 +39,18 @@
               }
             </mat-form-field>
 
-            <mat-form-field>
+            <!-- <mat-form-field>
               <mat-label>Status</mat-label>
               <mat-select required formControlName="status">
-                <mat-option value=true>Complete</mat-option>
-                <mat-option value=false>Incomplete</mat-option>
+                <mat-option value='true'>Complete</mat-option>
+                <mat-option value='false'>Incomplete</mat-option>
               </mat-select>
               @if (formControlHasError('status')) {
                 <mat-error data-test="statusError">
                   {{getErrorMessage('status')}}
                 </mat-error>
               }
-            </mat-form-field>
+            </mat-form-field> -->
           </div>
 
         </mat-card-content>
