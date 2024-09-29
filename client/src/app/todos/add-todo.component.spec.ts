@@ -152,7 +152,7 @@ describe('AddTodoComponent#submitForm()', () => {
     component.addTodoForm.controls.owner.setValue('Owen');
     component.addTodoForm.controls.category.setValue('software design');
     component.addTodoForm.controls.body.setValue('wuhwuhwuh');
-    // component.addTodoForm.controls.status.setValue(false);
+    //component.addTodoForm.controls.status.setValue(false);
   });
 
   it('should call addTodo() and handle success response', fakeAsync(() => {
