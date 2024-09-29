@@ -22,7 +22,7 @@ export class AddTodoComponent {
   addTodoForm = new FormGroup({
     owner: new FormControl('',Validators.compose([
       Validators.required,
-      Validators.minLength(1),
+      Validators.minLength(0),
       // (fc) => {
       //   if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
       //     return ({existingOwner: true});

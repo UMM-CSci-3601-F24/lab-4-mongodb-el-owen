@@ -114,11 +114,11 @@ public class TodoController implements Controller {
   public void addNewTodo(Context ctx) {
     String body = ctx.body();
     Todo newTodo = ctx.bodyValidator(Todo.class)
-        .check(todo -> todo.owner != null && todo.owner.length() > 0,
+        .check(todo -> todo.owner != null && todo.owner.length() > 1,
             "User must have a non-empty user one; body was " + body)
-        .check(todo -> todo.body != null && todo.body.length() > 0,
+        .check(todo -> todo.body != null && todo.body.length() > 1,
             "Todos's body must be greater than one; body was " + body)
-        .check(todo -> todo.category != null && todo.category.length() > 0,
+        .check(todo -> todo.category != null && todo.category.length() > 1,
             "Todos's category must be greater than one; body was " + body)
         .get();
 

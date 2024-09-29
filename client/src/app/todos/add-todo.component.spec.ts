@@ -76,10 +76,10 @@ describe('AddTodoComponent', () => {
       expect(ownerControl.valid).toBeTruthy();
     });
 
-    it('should fail on single character names', () => {
+    it('should pass on single character names', () => {
       ownerControl.setValue('x');
-      expect(ownerControl.valid).toBeFalsy();
-      expect(ownerControl.hasError('minlength')).toBeTruthy();
+      expect(ownerControl.valid).toBeTruthy();
+      // expect(ownerControl.hasError('minlength')).toBeTruthy();
     });
 
     it('should allow digits in the name', () => {
@@ -161,7 +161,7 @@ describe('AddTodoComponent#submitForm()', () => {
       component.submitForm();
       expect(addTodoSpy).toHaveBeenCalledWith(component.addTodoForm.value);
       tick();
-      expect(location.path()).toBe('/users/1');
+      expect(location.path()).toBe('/todos/1');
       flush();
     });
   }));

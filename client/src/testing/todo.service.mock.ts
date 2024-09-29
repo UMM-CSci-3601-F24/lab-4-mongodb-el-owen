@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { Todo } from '../app/todos/todo';
 import { TodoService } from '../app/todos/todo.service';
@@ -35,4 +35,10 @@ export class MockTodoService extends TodoService {
   constructor() {
     super(null);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getTodos(_filters: { owner?: string; status?: string; }): Observable<Todo[]> {
+      return of(MockTodoService.testTodos);
+  }
+
 }

@@ -19,21 +19,20 @@ export class TodoService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getTodos(filters?: { owner?: string; status?: boolean}): Observable<Todo[]> {
+  getTodos(filters?: { owner?: string; status?: string}): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.owner) {
         httpParams = httpParams.set(this.ownerKey, filters.owner);
       }
       if (filters.status) {
-        httpParams = httpParams.set(this.statusKey, filters.status.toString());
+        httpParams = httpParams.set(this.statusKey, filters.status);
       }
     }
     return this.httpClient.get<Todo[]>(this.todoUrl, {
       params: httpParams,
     });
   }
-
 
   getTodoById(id: string): Observable<Todo> {
     // The input to get could also be written as (this.userUrl + '/' + id)
