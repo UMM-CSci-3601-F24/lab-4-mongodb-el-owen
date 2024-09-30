@@ -66,6 +66,16 @@
   </div>
 </div>
 
+<mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>
+
+<button mat-fab class="add-todo-fab" matTooltip="Add Todo" matTooltipPosition="left" routerLink="/todos/new" data-test="addTodoButton">
+  <mat-icon class="md-24" aria-label="Add todo">add</mat-icon>
+</button>
+
 <div class="flex-row">
   @if(serverFilteredTodos()) {
     <div class="flex-1">
@@ -97,7 +107,7 @@
                       <span matListItemLine class="todo-list-body">{{todo.body}}</span>
                     </a>
                     <button mat-fab class="delete-todo-fab" matTooltip="Delete Todo"
-                    matTooltipPosition="left" (click)="deleteTodo(todo._id)" routerLink="/todos" data-test="deleteTodoButton">
+                    matTooltipPosition="right" (click)="deleteTodo(todo._id)" routerLink="/todos" data-test="deleteTodoButton">
                       <mat-icon class="md-24" aria-label="Delete todo">delete</mat-icon>
                     </button>
                     <br>
@@ -121,13 +131,3 @@
     </div>
   }
 </div>
-
-<button mat-fab class="add-todo-fab" matTooltip="Add Todo" matTooltipPosition="left" routerLink="/todos/new" data-test="addTodoButton">
-  <mat-icon class="md-24" aria-label="Add todo">add</mat-icon>
-</button>
-
-<mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
-</mat-paginator>

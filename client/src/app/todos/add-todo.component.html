@@ -10,7 +10,7 @@
           <div class="flex-col">
             <mat-form-field>
               <mat-label>Owner</mat-label>
-              <input matInput formControlOwner="owner"
+              <input matInput formControlName="owner"
                 required>
               @if (formControlHasError('owner')) {
                 <mat-error data-test="ownerError">

@@ -22,7 +22,7 @@ export class AddTodoComponent {
   addTodoForm = new FormGroup({
     owner: new FormControl('',Validators.compose([
       Validators.required,
-      Validators.minLength(0),
+      Validators.minLength(1),
       // (fc) => {
       //   if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
       //     return ({existingOwner: true});
@@ -36,10 +36,8 @@ export class AddTodoComponent {
     ])),
     body: new FormControl('', Validators.compose([
       Validators.required,
+      Validators.minLength(1),
     ])),
-    // status: new FormControl<boolean>(null, Validators.compose([
-    //   Validators.required,
-    // ])),
   });
 
   readonly addTodoValidationMessages = {
