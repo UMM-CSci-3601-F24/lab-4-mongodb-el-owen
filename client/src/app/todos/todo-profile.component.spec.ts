@@ -14,9 +14,9 @@ describe('TodoProfileComponent', () => {
   let component: TodoProfileComponent;
   let fixture: ComponentFixture<TodoProfileComponent>;
   const mockTodoService = new MockTodoService();
-  const chrisId = 'chris_id';
+  const fryId = 'Fry_id';
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
-    id : chrisId
+    id : fryId
   });
 
   beforeEach(waitForAsync(() => {
@@ -45,10 +45,7 @@ describe('TodoProfileComponent', () => {
   });
 
   it('should navigate to a specific todo profile', () => {
-    const expectedTodo: Todo = MockTodoService.testTodos[0];
-    // Setting this should cause anyone subscribing to the paramMap
-    // to update. Our `UserProfileComponent` subscribes to that, so
-    // it should update right away.
+    const expectedTodo: Todo = MockTodoService.testTodos[2];
     activatedRoute.setParamMap({ id: expectedTodo._id });
     expect(component.todo()).toEqual(expectedTodo);
   });

@@ -24,7 +24,7 @@ describe('TodoService', () => {
     },
     {
       owner: "Fry",
-      _id: "58af3a600343927e48e87211",
+      _id: "Fry_id",
       status: true,
       body: "Ullamco irure laborum magna dolor non. Anim occaecat adipisicing cillum eu magna in.",
       category: "homework",
@@ -222,4 +222,23 @@ describe('TodoService', () => {
       });
     }));
   })
+  // describe('Deleting a todo using deleteTodo()', () => {
+  //   it('Talks to correct endpoint with correct call', waitForAsync(() => {
+  //     const targetTodo: Todo = testTodos[1];
+  //     const targetId: string = targetTodo._id;
+
+  //     const mockedMethod = spyOn(httpClient, 'delete')
+  //       .and
+  //       .returnValue(of(targetTodo));
+
+  //     todoService.deleteTodo(targetId).subscribe((todo) => {
+  //       expect(mockedMethod)
+  //         .withContext('one call')
+  //         .toHaveBeenCalledTimes(1);
+  //       expect(mockedMethod)
+  //         .withContext('talks to the correct endpoint')
+  //         .toHaveBeenCalledWith(todoService.todoUrl, testTodos[1]);
+  //     });
+  //   }))
+  // })
 });
