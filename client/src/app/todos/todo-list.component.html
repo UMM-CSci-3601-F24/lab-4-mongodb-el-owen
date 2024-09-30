@@ -97,7 +97,7 @@
                       <span matListItemLine class="todo-list-body">{{todo.body}}</span>
                     </a>
                     <button mat-fab class="delete-todo-fab" matTooltip="Delete Todo"
-                    matTooltipPosition="left" routerLink="/todos/{{todo._id}}" data-test="deleteTodoButton">
+                    matTooltipPosition="left" (click)="deleteTodo(todo._id)" routerLink="/todos" data-test="deleteTodoButton">
                       <mat-icon class="md-24" aria-label="Delete todo">delete</mat-icon>
                     </button>
                     <br>

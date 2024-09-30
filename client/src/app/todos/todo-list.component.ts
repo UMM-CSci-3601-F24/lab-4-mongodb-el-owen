@@ -105,4 +105,14 @@ export class TodoListComponent {
   });
 
 
+  deleteTodo(id: string) {
+    this.todoService.deleteTodo(id).subscribe(() => {
+      if (this.todoOwner() === undefined) {
+        this.todoOwner.set("");
+      } else {
+        this.todoOwner.set(undefined);
+      }
+      this.snackBar.open(`We deleted a todo!`, 'OK', { duration: 6000 });
+    })
+  }
 }

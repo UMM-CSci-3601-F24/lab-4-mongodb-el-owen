@@ -37,6 +37,11 @@ export class TodoService {
     // Send post request to add a new user with the todo data as the body.
     return this.httpClient.post<{id: string}>(this.todoUrl, newTodo).pipe(map(res => res.id));
   }
+
+  deleteTodo(id: string): Observable<void>{
+    return this.httpClient.delete<void>(`${this.todoUrl}/${id}`);
+  }
+
   getTodoById(id: string): Observable<Todo> {
     return this.httpClient.get<Todo>(`${this.todoUrl}/${id}`);
   }
