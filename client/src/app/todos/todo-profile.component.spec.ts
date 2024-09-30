@@ -1,23 +1,61 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TodoProfileComponent } from './todo-profile.component';
+import { MockTodoService } from 'src/testing/todo.service.mock';
+import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatCardModule } from '@angular/material/card';
+import { TodoCardComponent } from './todo-card.component';
+import { TodoService } from './todo.service';
+import { ActivatedRoute } from '@angular/router';
+import { Todo } from './todo';
 
 describe('TodoProfileComponent', () => {
   let component: TodoProfileComponent;
   let fixture: ComponentFixture<TodoProfileComponent>;
+  const mockTodoService = new MockTodoService();
+  const chrisId = 'chris_id';
+  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
+    id : chrisId
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TodoProfileComponent]
-    })
-    .compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+    imports: [
+        RouterTestingModule,
+        MatCardModule,
+        TodoProfileComponent,
+        TodoCardComponent
+    ],
+    providers: [
+        { provide: TodoService, useValue: mockTodoService },
+        { provide: ActivatedRoute, useValue: activatedRoute }
+    ]
+  }).compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(TodoProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should navigate to a specific todo profile', () => {
+    const expectedTodo: Todo = MockTodoService.testTodos[0];
+    // Setting this should cause anyone subscribing to the paramMap
+    // to update. Our `UserProfileComponent` subscribes to that, so
+    // it should update right away.
+    activatedRoute.setParamMap({ id: expectedTodo._id });
+    expect(component.todo()).toEqual(expectedTodo);
+  });
+
+  it('should have `null` for the todo for a bad ID', () => {
+    activatedRoute.setParamMap({ id: 'badID' });
+    expect(component.todo()).toBeNull();
+  });
+
 });

@@ -28,7 +28,7 @@ export class TodoProfileComponent {
       switchMap((id: string) => this.todoService.getTodoById(id)),
       catchError((_err) => {
         this.error.set({
-          help: 'There was a problem loading the user – try again.',
+          help: 'There was a problem loading the todo – try again.',
           httpResponse: _err.message,
           message: _err.error?.title,
         });
