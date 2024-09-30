@@ -41,5 +41,8 @@ describe('Todo list', () => {
     });
   });
 
+  it('Should select a status and check that it returned the correct elements', () => {
+    page.selectStatus('Complete');
+  })
 
 });

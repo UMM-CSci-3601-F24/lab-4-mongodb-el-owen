@@ -1,3 +1,5 @@
+import { TodoStatus } from 'src/app/todos/todo';
+
 export class TodoListPage {
   private readonly baseUrl = '/todos';
   private readonly pageTitle = '.todo-list-title';
@@ -5,7 +7,7 @@ export class TodoListPage {
   private readonly todoListItemsSelector = '.todo-nav-list .todo-list-item';
   // private readonly profileButtonSelector = '[data-test=viewProfileButton]';
   private readonly radioButtonSelector = `[data-test=viewTypeRadio] mat-radio-button`;
-  // private readonly todoRoleDropdownSelector = '[data-test=todoRoleSelect]';
+  private readonly todoStatusDropdownSelector = '[data-test=todoStatusSelect]';
   private readonly dropdownOptionSelector = `mat-option`;
   private readonly addTodoButtonSelector = '[data-test=addTodoButton]';
 
@@ -65,5 +67,10 @@ export class TodoListPage {
 
   addTodoButton() {
     return cy.get(this.addTodoButtonSelector);
+  }
+
+  selectStatus(value: TodoStatus) {
+    cy.get(this.todoStatusDropdownSelector).click();
+    return cy.get(`${this.dropdownOptionSelector}[value="${value}"]`).click();
   }
 }
