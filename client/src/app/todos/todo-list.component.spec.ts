@@ -76,12 +76,16 @@ describe('Misbehaving Todo List', () => {
 
   let todoServiceStub: {
     getTodos: () => Observable<Todo[]>;
+    filterTodos: () => Observable<Todo[]>;
   };
 
   beforeEach(() => {
      todoServiceStub = {
       getTodos: () => new Observable(observer => {
         observer.error('getTodos() Observer generates an error');
+      }),
+      filterTodos: () => new Observable(observer => {
+        observer.error('filterTodos() Observer generates an error');
       }),
     };
 
@@ -101,7 +105,7 @@ describe('Misbehaving Todo List', () => {
     });
   }));
 
-  it("generates an error if we don't set up a UserListService", () => {
+  it("generates an error if we don't set up a TodoListService", () => {
     expect(todoList.serverFilteredTodos())
       .withContext("service can't give values to the list if it's not there")
       .toEqual([]);
