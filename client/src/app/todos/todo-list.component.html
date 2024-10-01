@@ -86,7 +86,7 @@
               <mat-card-content>
                 <mat-nav-list class="todo-nav-list">
                   <h3 mat-subheader>Todos</h3>
-                  @for (todo of filteredTodos(); track todo._id) {
+                  @for (todo of displayTodos(); track todo._id) {
                     <a mat-list-item [routerLink]="['/todos',todo._id]" class="todo-list-item">
                       <span matListItemTitle mat-line class="todo-list-owner">{{todo.owner}}</span>
                       <span matListItemLine class="todo-list-category">{{todo.category}}</span>
@@ -118,8 +118,9 @@
     </div>
   }
 </div>
-<mat-paginator [length]="100"
-              [pageSize]="10"
+<mat-paginator [length]="getNumTodos()"
+              [pageSize]='10'
               [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="handlePageEvent($event)"
               aria-label="Select page">
 </mat-paginator>
