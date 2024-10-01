@@ -42,9 +42,9 @@ export class TodoListPage {
    * @returns an iterable (`Cypress.Chainable`) containing all
    *   the `.user-list-item` DOM elements.
    */
-  // getTodoListItems() {
-  //   return cy.get(this.todoListItemsSelector);
-  // }
+  getTodoListItems() {
+    return cy.get(this.todoListItemsSelector);
+  }
 
   // /**
   //  * Clicks the "view profile" button for the given user card.

@@ -85,7 +85,7 @@
           @case ('card') {
             <br>
             <div class="todo-cards-container flex-row gap-8 flex-wrap">
-              @for (todo of filteredTodos(); track todo._id) {
+              @for (todo of displayTodos(); track todo._id) {
                 <app-todo-card [simple]="true" class="todo-card" [todo]="todo" ></app-todo-card>
               }
             </div>
