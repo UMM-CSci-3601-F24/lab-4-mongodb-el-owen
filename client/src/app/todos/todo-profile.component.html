@@ -2,9 +2,9 @@
   <div class="flex-1">
     @if (todo) {
       <app-todo-card [todo]="todo()">
-        <button mat-fab class="add-todo-fab" matTooltip="Delete Todo" matTooltipPosition="left" routerLink="/todos/id" data-test="deleteTodoButton">
+        <!-- <button mat-fab class="add-todo-fab" matTooltip="Delete Todo" matTooltipPosition="left" routerLink="/todos/id" data-test="deleteTodoButton">
         // i need the delete version of this call
-        </button>
+        </button> -->
       </app-todo-card>
     } @else if (error) {
       <mat-card class="error-card">
