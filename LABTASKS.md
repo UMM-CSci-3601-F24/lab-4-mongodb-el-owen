@@ -49,8 +49,8 @@ Spend some time looking over the project with these questions in mind. (Unlike t
 - [x] Filter todos by owner
 - [x] Filter todos by contents of the body
 - [x] Filter todos by category
-- [ ] Combinations of filters
-- [ ] Sort by a todo field (status, owner, body contents, or category)
+- [x] Combinations of filters
+- [x] Sort by a todo field (status, owner, body contents, or category)
 - [ ] Limit the number of todos returned
 - [ ] Ability to add new todos. This requires:
   - [ ] An Angular form/page that allows the user to enter the information for a new todo with reasonable controls and validation.
