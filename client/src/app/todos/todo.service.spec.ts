@@ -50,7 +50,7 @@ describe('TodoService', () => {
     httpTestingController.verify();
   });
 
-  describe('When getTodos() is called with no paramters', () => {
+  describe('When getTodos() is called with no parameters', () => {
     it('calls api/todos', waitForAsync(() => {
       const mockedMethod = spyOn(httpClient, 'get').and.returnValue(of(testTodos));
 
@@ -140,7 +140,7 @@ describe('TodoService', () => {
       const mockedMethod = spyOn(httpClient, 'get').and.returnValue(of(targetTodo));
 
       todoService.getTodoById(targetId).subscribe((todo) => {
-        expect(todo).withContext('return target todo').toBe(targetTodo);
+        expect(todo).withContext('returns target todo').toBe(targetTodo);
         expect(mockedMethod)
           .withContext('one call')
           .toHaveBeenCalledTimes(1);
@@ -150,58 +150,50 @@ describe('TodoService', () => {
       });
     }));
   });
-  /*
-  describe('Filtering on the client using `filterUsers()` (Angular/Client filtering)', () => {
-    //
-    //  * Since `filterUsers` actually filters "locally" (in
-    //  * Angular instead of on the server), we do want to
-    //  * confirm that everything it returns has the desired
-    //  * properties. Since this doesn't make a call to the server,
-    //  * though, we don't have to use the mock HttpClient and
-    //  * all those complications.
-    //
-    it('filters by name', () => {
-      const userName = 'i';
-      const filteredUsers = userService.filterUsers(testUsers, { name: userName });
+  describe('Filtering on the client using `filterTodos()` (Angular/Client filtering)', () => {
+    it('filters by body', () => {
+      const todoBody = 'commodo';
+      const filteredTodos = todoService.filterTodos(testTodos, { body: todoBody });
       // There should be two users with an 'i' in their
       // name: Chris and Jamie.
-      expect(filteredUsers.length).toBe(2);
+      expect(filteredTodos.length).toBe(2);
       // Every returned user's name should contain an 'i'.
-      filteredUsers.forEach(user => {
-        expect(user.name.indexOf(userName)).toBeGreaterThanOrEqual(0);
+      filteredTodos.forEach(todo => {
+        expect(todo.body.indexOf(todoBody)).toBeGreaterThanOrEqual(0);
       });
     });
 
-    it('filters by company', () => {
-      const userCompany = 'UMM';
-      const filteredUsers = userService.filterUsers(testUsers, { company: userCompany });
+    it('filters by category', () => {
+      const todoCategory = 'homework';
+      const filteredTodos = todoService.filterTodos(testTodos, { category: todoCategory });
       // There should be just one user that has UMM as their company.
-      expect(filteredUsers.length).toBe(1);
+      expect(filteredTodos.length).toBe(1);
       // Every returned user's company should contain 'UMM'.
-      filteredUsers.forEach(user => {
-        expect(user.company.indexOf(userCompany)).toBeGreaterThanOrEqual(0);
+      filteredTodos.forEach(todo => {
+        expect(todo.category.indexOf(todoCategory)).toBeGreaterThanOrEqual(0);
       });
     });
 
-    it('filters by name and company', () => {
+    it('filters by body and category', () => {
       // There's only one user (Chris) whose name
       // contains an 'i' and whose company contains
       // an 'M'. There are two whose name contains
       // an 'i' and two whose company contains an
       // an 'M', so this should test combined filtering.
-      const userName = 'i';
-      const userCompany = 'M';
-      const filters = { name: userName, company: userCompany };
-      const filteredUsers = userService.filterUsers(testUsers, filters);
+      const todoBody = 'i';
+      const todoCategory = 'v';
+      const filters = { body: todoBody, category: todoCategory };
+      const filteredTodos = todoService.filterTodos(testTodos, filters);
       // There should be just one user with these properties.
-      expect(filteredUsers.length).toBe(1);
+      expect(filteredTodos.length).toBe(1);
       // Every returned user should have _both_ these properties.
-      filteredUsers.forEach(user => {
-        expect(user.name.indexOf(userName)).toBeGreaterThanOrEqual(0);
-        expect(user.company.indexOf(userCompany)).toBeGreaterThanOrEqual(0);
+      filteredTodos.forEach(todo => {
+        expect(todo.body.indexOf(todoBody)).toBeGreaterThanOrEqual(0);
+        expect(todo.category.indexOf(todoCategory)).toBeGreaterThanOrEqual(0);
       });
     });
-  }); */
+  });
+
   describe('Adding a todo using `addTodo()`', () => {
     it('talks to the right endpoint and is called once', waitForAsync(() => {
       const todo_id = 'pat_id';
