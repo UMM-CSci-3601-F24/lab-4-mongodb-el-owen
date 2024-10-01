@@ -66,9 +66,9 @@ describe('Todo list', () => {
   it('contains a todo with category Video Games', () => {
     expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.category === 'video games')).toBe(true);
   });
-  // it('contain a todo with esse in the body', () => {
-  //   // expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.body === 'Jamie')).toBe(true);
-  // });
+  it('Has a todo with `esse` in the body', () => {
+    expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.body.includes('esse') )).toBe(true);
+  });
 });
 describe('Misbehaving Todo List', () => {
   let todoList: TodoListComponent;
