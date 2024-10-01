@@ -117,6 +117,7 @@ export class TodoListComponent {
     this.pageNumber.set($event.pageIndex);
     this.pageSize.set($event.pageSize);
   }
+
   displayTodos= computed(() => {
     return this.filteredTodos().slice(this.pageNumber()*this.pageSize(), Math.min((this.pageNumber() + 1)*this.pageSize(), this.getNumTodos()));
   });
