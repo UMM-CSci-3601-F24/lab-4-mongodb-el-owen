@@ -214,23 +214,23 @@ describe('TodoService', () => {
       });
     }));
   })
-  // describe('Deleting a todo using deleteTodo()', () => {
-  //   it('Talks to correct endpoint with correct call', waitForAsync(() => {
-  //     const targetTodo: Todo = testTodos[1];
-  //     const targetId: string = targetTodo._id;
+  describe('Deleting a todo using deleteTodo()', () => {
+    it('Talks to correct endpoint with correct call', waitForAsync(() => {
+      const targetTodo: Todo = testTodos[1];
+      const targetId: string = targetTodo._id;
 
-  //     const mockedMethod = spyOn(httpClient, 'delete')
-  //       .and
-  //       .returnValue(of(targetTodo));
+      const mockedMethod = spyOn(httpClient, 'delete')
+        .and
+        .returnValue(of(targetTodo));
 
-  //     todoService.deleteTodo(targetId).subscribe((todo) => {
-  //       expect(mockedMethod)
-  //         .withContext('one call')
-  //         .toHaveBeenCalledTimes(1);
-  //       expect(mockedMethod)
-  //         .withContext('talks to the correct endpoint')
-  //         .toHaveBeenCalledWith(todoService.todoUrl, testTodos[1]);
-  //     });
-  //   }))
-  // })
+      todoService.deleteTodo(targetId).subscribe(() => {
+        expect(mockedMethod)
+          .withContext('one call')
+          .toHaveBeenCalledTimes(1);
+        expect(mockedMethod)
+          .withContext('talks to the correct endpoint')
+          .toHaveBeenCalledWith(`${todoService.todoUrl}/${targetId}`);
+      });
+    }))
+  })
 });
