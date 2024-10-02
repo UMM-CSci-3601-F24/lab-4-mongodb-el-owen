@@ -105,7 +105,7 @@ public class TodoController implements Controller {
   }
 
   private Bson constructSortingOrder(Context ctx) {
-    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), "name"); // what are we sorting by
+    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), "owner"); // what are we sorting by
     String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
     Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
     return sortingOrder;
