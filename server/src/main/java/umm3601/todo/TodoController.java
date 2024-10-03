@@ -9,7 +9,7 @@ import static com.mongodb.client.model.Filters.regex;
 //import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Map;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -21,7 +21,7 @@ import org.mongojack.JacksonMongoCollection;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
-//import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.DeleteResult;
 
 import io.javalin.Javalin;
 import io.javalin.http.BadRequestResponse;
@@ -41,11 +41,6 @@ public class TodoController implements Controller {
   static final String CATEGORY_KEY = "category";
 
   static final String SORT_ORDER_KEY = "sortorder";
-
-  // from UserController.java - possibly not use
-  // private static final int REASONABLE_AGE_LIMIT = 150;
-  // private static final String ROLE_REGEX = "^(admin|editor|viewer)$";
-  // public static final String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
   private final JacksonMongoCollection<Todo> todoCollection;
 
@@ -110,42 +105,42 @@ public class TodoController implements Controller {
   }
 
   private Bson constructSortingOrder(Context ctx) {
-    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), "name"); // what are we sorting by
+    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), "owner"); // what are we sorting by
     String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
     Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
     return sortingOrder;
   }
 
-  // public void addNewTodo(Context ctx) {
-  //   String body = ctx.body();
-  //   Todo newTodo = ctx.bodyValidator(Todo.class)
-  //       .check(todo -> todo.owner != null && todo.owner.length() > 0,
-  //           "User must have a non-empty user name; body was " + body)
-  //       .check(todo -> todo.body != null && todo.body.length() > 0,
-  //           "Todos's body must be greater than zero; body was " + body)
-  //       .check(todo -> todo.category != null && todo.category.length() > 0,
-  //           "Todos's category must be greater than zero; body was " + body)
-  //       .get();
-  //   todoCollection.insertOne(newTodo);
+  public void addNewTodo(Context ctx) {
+    String body = ctx.body();
+    Todo newTodo = ctx.bodyValidator(Todo.class)
+        .check(todo -> todo.owner != null && todo.owner.length() > 1,
+            "User must have a non-empty user one; body was " + body)
+        .check(todo -> todo.body != null && todo.body.length() > 1,
+            "Todos's body must be greater than one; body was " + body)
+        .check(todo -> todo.category != null && todo.category.length() > 1,
+            "Todos's category must be greater than one; body was " + body)
+        .get();
 
-  //   ctx.json(Map.of("id", newTodo._id));
-  //   ctx.status(HttpStatus.CREATED);
-  // }
+    todoCollection.insertOne(newTodo);
 
-  // public void deleteTodo(Context ctx) {
-  //   String id = ctx.pathParam("id");
-  //   DeleteResult deleteResult = todoCollection.deleteOne(eq("_id", new ObjectId(id)));
-  //   // We should have deleted 1 or 0 users, depending on whether `id` is a valid
-  //   // user ID.
-  //   if (deleteResult.getDeletedCount() != 1) {
-  //     ctx.status(HttpStatus.NOT_FOUND);
-  //     throw new NotFoundResponse(
-  //         "Was unable to delete ID "
-  //             + id
-  //             + "; perhaps illegal ID or an ID for an item not in the system?");
-  //   }
-  //   ctx.status(HttpStatus.OK);
-  // }
+    ctx.json(Map.of("id", newTodo._id));
+    ctx.status(HttpStatus.CREATED);
+  }
+
+  public void deleteTodo(Context ctx) {
+    String id = ctx.pathParam("id");
+    DeleteResult deleteResult = todoCollection.deleteOne(eq("_id", new ObjectId(id)));
+
+    if (deleteResult.getDeletedCount() != 1) {
+      ctx.status(HttpStatus.NOT_FOUND);
+      throw new NotFoundResponse(
+          "Was unable to delete ID "
+              + id
+              + "; perhaps illegal ID or an ID for an item not in the system?");
+    }
+    ctx.status(HttpStatus.OK);
+  }
 
   public void addRoutes(Javalin server) {
     // Get the specified todo
@@ -158,10 +153,10 @@ public class TodoController implements Controller {
     // Get users, possibly filtered, grouped by company
 
     // Delete the specified user
-    // server.delete(API_TODO_BY_ID, this::deleteTodo);
+    server.delete(API_TODO_BY_ID, this::deleteTodo);
 
     // Add new user with the user info being in the JSON body
-    // server.post(API_TODOS, this::addNewTodo);
+    server.post(API_TODOS, this::addNewTodo);
     // of the HTTP request
   }
 }

@@ -1,0 +1,35 @@
+<div class="flex-row">
+  <div class="flex-1">
+    @if (todo) {
+      <app-todo-card [todo]="todo()">
+        <!-- <button mat-fab class="add-todo-fab" matTooltip="Delete Todo" matTooltipPosition="left" routerLink="/todos/id" data-test="deleteTodoButton">
+        // i need the delete version of this call
+        </button> -->
+      </app-todo-card>
+    } @else if (error) {
+      <mat-card class="error-card">
+        <mat-card-content>
+          <h2>
+            {{ error().help }}
+          </h2>
+          <p>
+            {{ error().message }}
+          </p>
+          <p>
+            {{ error().httpResponse }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button color=primary mat-raised-button routerLink="/todos">Back to Todos List</button>
+        </mat-card-actions>
+      </mat-card>
+    } @else {
+      <mat-card>
+        <mat-card-content>
+          <p>Loading Todo Profile data...</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>
+

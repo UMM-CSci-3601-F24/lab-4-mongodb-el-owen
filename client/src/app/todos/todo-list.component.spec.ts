@@ -21,6 +21,9 @@ import { TodoListComponent } from './todo-list.component';
 import { TodoService } from './todo.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+// import { Component, ViewChild } from '@angular/core';
+// import { MatPaginator } from '@angular/material/paginator';
+// import { ViewChild } from '@angular/core';
 
 const COMMON_IMPORTS: unknown[] = [
   FormsModule,
@@ -66,9 +69,9 @@ describe('Todo list', () => {
   it('contains a todo with category Video Games', () => {
     expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.category === 'video games')).toBe(true);
   });
-  // it('contain a todo with esse in the body', () => {
-  //   // expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.body === 'Jamie')).toBe(true);
-  // });
+  it('Has a todo with `esse` in the body', () => {
+    expect(todoList.serverFilteredTodos().some((todo: Todo) => todo.body.includes('esse') )).toBe(true);
+  });
 });
 describe('Misbehaving Todo List', () => {
   let todoList: TodoListComponent;
@@ -115,3 +118,68 @@ describe('Misbehaving Todo List', () => {
       console.log(todoList.errMsg);
   });
 });
+// describe('delete Todo', () => {
+//   let todoList: TodoListComponent;
+//   let fixture: ComponentFixture<TodoListComponent>;
+
+
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: [COMMON_IMPORTS, TodoListComponent, TodoCardComponent],
+//       providers: [{provide: TodoService, useValue: new MockTodoService() }],
+//     });
+//   });
+
+//   beforeEach(waitForAsync(() => {
+//     TestBed.compileComponents().then(() => {
+//       fixture = TestBed.createComponent(TodoListComponent);
+//       todoList = fixture.componentInstance;
+//       fixture.detectChanges();
+//     });
+//   }));
+
+//   it('delete todo returns correct message', () => {
+//     todoList.deleteTodo()
+//     expect(todoList.serverFilteredTodos().some((todo: Todo) =>
+//       todo.owner.includes(undefined) || todo.owner.includes('') )).toBe(true);
+//   });
+// })
+// describe('handles paginator', () => {
+//   let todoList: TodoListComponent;
+//   let fixture: ComponentFixture<TodoListComponent>;
+//   let paginator: MatPaginator;
+//   // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: [COMMON_IMPORTS, TodoListComponent, TodoCardComponent],
+//       providers: [{provide: TodoService, useValue: new MockTodoService() }],
+//     });
+//   });
+
+//   beforeEach(waitForAsync(() => {
+//     TestBed.compileComponents().then(() => {
+//       fixture = TestBed.createComponent(TodoListComponent);
+//       todoList = fixture.componentInstance;
+//       fixture.detectChanges();
+//     });
+//   }));
+
+//   it ('can move pages', () => {
+//     expect(todoList.serverFilteredTodos().length).toBe(3);
+//   // @ViewChild('paginator') paginator: MatPaginator;
+//   // Component.paginator.nextPage();
+//   // paginator.firstPage()
+//   // eslint-disable-next-line no-underscore-dangle
+//   paginator._changePageSize(1); void
+
+//   expect(todoList.displayTodos().length).toBe(1);
+//   paginator.nextPage()
+//   expect(todoList.displayTodos().length).toBe(1);
+//   paginator.lastPage()
+//   expect(todoList.displayTodos().length).toBe(1);
+//   // eslint-disable-next-line no-underscore-dangle
+//   expect(paginator._nextButtonsDisabled);
+//   });
+
+// });

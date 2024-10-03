@@ -4,8 +4,8 @@
       <mat-card-title class="todo-card-owner"> {{ this.todo().owner }}</mat-card-title>
       <mat-card-subtitle class="todo-card-category"> {{ this.todo().category }} </mat-card-subtitle>
       @if(this.todo().status) {
-        <mat-icon aria-hidden="true/complete" matListIcon>check_circle</mat-icon>
-      } @else {<mat-icon aria-hidden="false/incomplete" matListIcon>check_circle_outline</mat-icon>}
+        <mat-icon class='todo-card-status' aria-hidden="true/complete" matListIcon>check_circle</mat-icon>
+      } @else {<mat-icon class='todo-card-status' aria-hidden="false/incomplete" matListIcon>check_circle_outline</mat-icon>}
       <mat-card-content class="todo-card-body"> {{ this.todo().body }} </mat-card-content>
     </mat-card-header>
     @if (!this.simple()) {
@@ -21,6 +21,9 @@
       </p>
     </mat-card-content>
     }
+    <!-- <button mat-fab class="add-todo-fab" matTooltip="Delete Todo" matTooltipPosition="left" data-test="deleteTodoButton">
+      <mat-icon class="md-24" aria-label="Delete todo">delete</mat-icon>
+    </button> -->
 
     <!-- requires searching by id
     @if (this.simple()) {

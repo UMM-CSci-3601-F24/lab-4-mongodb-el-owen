@@ -56,7 +56,7 @@ export class TodoListComponent {
   pageSize = signal<number>(10);
   pageNumber = signal<number>(0);
 
-  viewType = signal<'card' | 'list'>('list');
+  viewType = signal<'card' | 'list'>('card');
 
   errMsg = signal<string | undefined>(undefined);
 
@@ -117,7 +117,19 @@ export class TodoListComponent {
     this.pageNumber.set($event.pageIndex);
     this.pageSize.set($event.pageSize);
   }
+
   displayTodos= computed(() => {
     return this.filteredTodos().slice(this.pageNumber()*this.pageSize(), Math.min((this.pageNumber() + 1)*this.pageSize(), this.getNumTodos()));
   });
+
+  deleteTodo(id: string) {
+    this.todoService.deleteTodo(id).subscribe(() => {
+      if (this.todoOwner() === undefined) {
+        this.todoOwner.set("");
+      } else {
+        this.todoOwner.set(undefined);
+      }
+      this.snackBar.open(`We deleted a todo!`, 'OK', { duration: 6000 });
+    })
+  }
 }

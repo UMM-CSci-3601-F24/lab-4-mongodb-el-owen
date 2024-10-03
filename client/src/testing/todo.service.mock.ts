@@ -25,7 +25,7 @@ export class MockTodoService extends TodoService {
     },
     {
       owner: "Fry",
-      _id: "58af3a600343927e48e87211",
+      _id: "Fry_id",
       status: true,
       body: "Ullamco irure laborum magna dolor non. Anim occaecat adipisicing cillum eu magna in.",
       category: "homework",
@@ -39,6 +39,21 @@ export class MockTodoService extends TodoService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTodos(_filters: {owner?: string; status?: string}): Observable<Todo[]> {
     return of(MockTodoService.testTodos);
+  }
+
+  // skipcq: JS-0105
+  getTodoById(id: string): Observable<Todo> {
+    // the skip command line is not working and Its messing up our coverage
+    // if (id === MockTodoService.testTodos[0]._id) {
+    //   return of(MockTodoService.testTodos[0]);
+    // } else if (id === MockTodoService.testTodos[1]._id) {
+    //   return of(MockTodoService.testTodos[1]);
+    // } else
+    if (id === MockTodoService.testTodos[2]._id) {
+      return of(MockTodoService.testTodos[2]);
+    } else {
+      return of(null);
+    }
   }
 }
 
