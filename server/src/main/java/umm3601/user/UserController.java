@@ -63,7 +63,17 @@ public class UserController implements Controller {
 
   /**
    * Set the JSON body of the response to be the single user
-   * specified by the `id` parameter in the request
+   * specified by the `id` parameter in the requestString generateAvatar(String email) {
+  //   String avatar;
+  //   try {
+  //     // generate unique md5 code for identicon
+  //     avatar = "https://gravatar.com/avatar/" + md5(email) + "?d=identicon";
+  //   } catch (NoSuchAlgorithmException ignored) {
+  //     // set to mystery person
+  //     avatar = "https://gravatar.com/avatar/?d=mp";
+  //   }
+  //   return avatar;
+  // }
    *
    * @param ctx a Javalin HTTP context
    */
